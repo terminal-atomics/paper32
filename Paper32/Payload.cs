@@ -37,6 +37,7 @@ namespace Paper32
                     {
                         if (source == "" || dest == "")
                         {
+                            c.DeleteInstruction(); // Invalid instruction
                             continue;
                         }
                         try
@@ -50,6 +51,7 @@ namespace Paper32
                     {
                         if (dest == "")
                         {
+                            c.DeleteInstruction(); // Invalid instruction
                             continue;
                         }
                         try
@@ -63,6 +65,7 @@ namespace Paper32
                     {
                         if (source == "" || dest == "")
                         {
+                            c.DeleteInstruction(); // Invalid instruction
                             continue;
                         }
                         try
@@ -78,6 +81,7 @@ namespace Paper32
                     {
                         if (command == "")
                         {
+                            c.DeleteInstruction(); // Invalid instruction
                             continue;
                         }
                         try
@@ -91,6 +95,10 @@ namespace Paper32
                             c.DeleteInstruction();
                         }
                         catch { }
+                    }
+                    else
+                    {
+                        c.DeleteInstruction(); // Invalid instruction type
                     }
                 }
                 catch { }
