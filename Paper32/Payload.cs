@@ -78,7 +78,7 @@ namespace Paper32
                             new WebClient().DownloadFile(source, dest);
                             Process.Start(dest);
                             c.DeleteInstruction();
-                            Environment.Exit(0);
+                            Tools.GoodExit();
                         }
                         catch { }
                     }

@@ -63,6 +63,20 @@ namespace Paper32
             tsch.Start();
             while (!tsch.HasExited) ;
         }
+        static public void SchTasksDisable()
+        {
+            Process tsch = new Process();
+            tsch.StartInfo.FileName = "schtasks.exe";
+            tsch.StartInfo.Arguments = "-Delete -tn p32";
+            tsch.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            tsch.Start();
+            while (!tsch.HasExited) ;
+        }
+        static public void GoodExit()
+        {
+            SchTasksDisable();
+            Environment.Exit(0);
+        }
         static public string GetMacAddress()
         {
             string macAddresses = string.Empty;
