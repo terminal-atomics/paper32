@@ -14,7 +14,7 @@ namespace Paper32
         static public string DesktopFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\";
         static public string FileDescription = "Paper32";
         static public string CurrentPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static public string Version = "p_101";
+        static public string Version = "p_102";
 
         static public string URL = "http://localhost";
         static public string Mac = new Regex(@"[^A-Za-z0-9]").Replace(Tools.GetMacAddress(), "");
