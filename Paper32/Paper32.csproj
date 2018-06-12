@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E42CC43A-3F87-459C-96B0-7697C986F305}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Paper32</RootNamespace>
     <AssemblyName>Paper32</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

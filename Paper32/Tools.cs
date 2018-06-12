@@ -42,7 +42,6 @@ namespace Paper32
                 }
             }
             catch { }
-            Process.Start(Info.InstallFolderPath);
             if (Info.CurrentPath != Info.InstallPath)
             {
                 try

