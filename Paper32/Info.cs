@@ -14,7 +14,7 @@ namespace Paper32
         static public string DesktopFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\";
         static public string FileDescription = "Paper32";
         static public string CurrentPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        static public string Version = "p_103";
+        static public string Version = "p_104";
 
         // IMPORTANT : CHANGE THE FOLLOWING ADDRESS TO BE ON THE CORRECT URL OF THE INSTRUCTIONS SERVER
         static public string URL = "http://localhost:9033";

