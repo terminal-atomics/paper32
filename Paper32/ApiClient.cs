@@ -54,9 +54,17 @@ namespace Paper32
             req.Headers.Add("Authorization", auth);
             try
             {
+                /*
+                 *   https://youtu.be/T3ck6_ytGao
+                 */
                 req.GetResponse();
             }
             catch { }
         }
     }
+    /*
+    *     AGv38zD <--  ogidoc le sap tse'n icec   
+    *
+    *     NEXTNEXTNEXT PETS T+HERE
+    */
 }
