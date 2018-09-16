@@ -21,5 +21,8 @@ namespace Paper32
         static public string Mac = new Regex(@"[^A-Za-z0-9]").Replace(Tools.GetMacAddress(), "");
         static public string User = new Regex(@"[^A-Za-z0-9]").Replace(System.Security.Principal.WindowsIdentity.GetCurrent().Name, "");
         static public string HTTPAuth = "azertyuiop"; // This is a placeholder password. The more important is that the "add instruction" one stays safe.
+
+        // CODIGO CODIGO es micron
+        // d7317dbe <-- esto tambien es un otro codigoogidoc orto nu se neibmat otse
     }
 }
